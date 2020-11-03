@@ -37,9 +37,9 @@ Se não tiver as bibliotecas Python necessárias configuradas, receberá um erro
 # Imagens funcionamento do script
 <img src="screenshots/ip_invalido.png"><br>
 <img src="screenshots/nadanovo.png"><br>
-<b> Opção de atribuir<b>
+<b> Caso o usuário escolha opção de atribuir à um Site existente<b><br>
 <img src="screenshots/script_atribuir.png"><br>
-<b> Opção de criar novo Site<b>
+<b> Caso o usuário escolha opção de criar novo Site<b>
 <img src="screenshots/script_novosite.png"><br>
 <b> Dashboard Umbrella mostrando cadastrado!
 <img src="screenshots/umbrella_internalnet.png"><br>
