@@ -8,7 +8,6 @@ O ID da sua Organização do Umbrella também é necessário para execução do 
 
 Se não tiver as bibliotecas Python necessárias configuradas, receberá um erro ao executar o script. Você precisará instalar o arquivo "requirements.txt": (certifique-se de que está no mesmo diretório que os arquivos clonados do git):<br>
 <b> pip install -r requirements.txt</b><br>
-<b> pip3 install -r requirements.txt</b> (Para Python 3.X)<br><br>
 
 # Arquivo de configuração, modificar com seus dados e credenciais antes de rodar o script
 <img src="screenshots/config_file.png"><br><br><br>
