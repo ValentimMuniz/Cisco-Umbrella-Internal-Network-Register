@@ -15,14 +15,14 @@ Se não tiver as bibliotecas Python necessárias configuradas, receberá um erro
 
 
 # Como funciona ??
-• O script vai exigir através de prompts que você indique o arquivo CSV que vai ser usado para o cadastro. Caso não encontre ele encerra. (Não é necessário colocar extensão, o script faz isso automáticamente)
+• O script vai exigir através de prompts que você indique o arquivo CSV que vai ser usado para o cadastro. Caso não encontre ele encerra. (Não é necessário colocar extensão, o script faz isso automáticamente)<br>
 <img src="screenshots/informa_csv.png"><br><br><br>
 • Após informar o CSV, e caso ele exista, o script vai te dar duas opções:<br> 
-    1. Criar um novo Site, e a partir do Site criado, cadastrar as Internals Networks do CSV atribuídas à esse novo site criado
+    1. Criar um novo Site, e a partir do Site criado, cadastrar as Internals Networks do CSV atribuídas à esse novo site criado<br>
     <img src="screenshots/criar_novo_site.png"><br>
-    2. Registrar as Internal Networks à um site existente, o scritp vai printar uma lista de sites existentes no Umbrella e para essa opção você deve usar o SiteId futuramente.
+    2. Registrar as Internal Networks à um site existente, o scritp vai printar uma lista de sites existentes no Umbrella e para essa opção você deve usar o SiteId futuramente.<br>
     <img src="screenshots/lista_sites.png"><br>
-    3. O CSV deve ser preenchido da seguinte forma para que o script funcione corretamente
+    3. O CSV deve ser preenchido da seguinte forma para que o script funcione corretamente<br>
 <b> SEMPRE: NOME,IP,PREFIXO</b>
 <img src="screenshots/csv.png"><br><br>
 
