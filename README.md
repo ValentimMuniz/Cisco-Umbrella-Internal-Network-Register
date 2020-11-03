@@ -16,7 +16,7 @@ Se não tiver as bibliotecas Python necessárias configuradas, receberá um erro
 
 # Como funciona ??
 • O script vai exigir através de prompts que você indique o arquivo CSV que vai ser usado para o cadastro. Caso não encontre ele encerra. (Não é necessário colocar extensão, o script faz isso automáticamente)
-<img src="screenshots/informa_csv.png"><br>
+<img src="screenshots/informa_csv.png"><br><br><br>
 • Após informar o CSV, e caso ele exista, o script vai te dar duas opções:<br> 
     1. Criar um novo Site, e a partir do Site criado, cadastrar as Internals Networks do CSV atribuídas à esse novo site criado
     <img src="screenshots/criar_novo_site.png"><br>
