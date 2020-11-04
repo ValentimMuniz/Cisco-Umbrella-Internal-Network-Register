@@ -15,7 +15,7 @@ If you do not have the required Python libraries configured, you will receive an
 
 # How it works ??
 • The script will require prompts to indicate the CSV file that will be used for registration. If not, it closes. (There is no need to add an extension for the CSV file, the script does it automatically)<br>
-<img src="screenshots/informa_csv.png"><br><br><br>
+<img src="screenshots/typecsv.png"><br><br><br>
 • After informing the CSV, and if it exists, the script will give you two options:<br> 
     1. Create a new Site, and from the created Site, register the Internals Networks and assing to this new created Site<br>
     <img src="screenshots/criar_novo_site.png"><br>
