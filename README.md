@@ -18,7 +18,7 @@ If you do not have the required Python libraries configured, you will receive an
 <img src="screenshots/typecsv.png"><br><br><br>
 • After informing the CSV, and if it exists, the script will give you two options:<br> 
     1. Create a new Site, and from the created Site, register the Internals Networks and assing to this new created Site<br>
-    <img src="screenshots/criar_novo_site.png"><br>
+    <img src="screenshots/create_newSite.png"><br>
     2. Register the Internal Networks ans assigns to a existing site, the scritp will print a list of existing Sites on Umbrella, and for that option you will use the SiteId in nexts steps<br>
     <img src="screenshots/listSites.png"><br>
     3. O CSV deve ser preenchido da seguinte forma para que o script funcione corretamente<br>
