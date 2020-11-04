@@ -27,10 +27,6 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/
 
 
-
-# Script que cria Internal Networks no Umbrella a partir de um CSV, facilitando para cadastro de redes em massa.
-
-
 import json
 import requests
 import configparser
@@ -40,7 +36,7 @@ import ipaddress
 import os.path
 from collections import OrderedDict
 
-# Arquivo de configuração
+# Parsing the config file
 config = configparser.ConfigParser()
 config.read('config')
 org_id = config['Umbrella']['OrgID']
@@ -52,49 +48,49 @@ mgmt_api_secret = config['Umbrella']['ManagementAPISecret']
 header_sites = {'organizationID': '{}'.format(org_id)}
 header_internalnet = {'organizationID': '{}'.format(org_id),'Content-Type': 'application/json','Accept': 'application/json'}
 
-# management api url, usado para pegar o access token do reporting api
+# management api urli
 mgmt_url = 'https://management.api.umbrella.com/v1'
 
 
-#Função para fazer GET das Internal Networks existentes no Umbrella
+#Function to GET Internal Networks in Umbrella
 def get_internalnetworks_request(endpoint):
     r = requests.get(mgmt_url+endpoint, headers=header_sites, auth=(mgmt_api_key, mgmt_api_secret))
     body = json.loads(r.content)
     return body
 
-#Função para fazer GET dos sites
+#Funtion to GET Umbrella Sites
 def get_sites_request(endpoint):
     r = requests.get(mgmt_url+endpoint, headers=header_sites, auth=(mgmt_api_key, mgmt_api_secret))
     body = json.loads(r.content)
     return body
 
-#Função para fazer POST e criar um novo Site
+#Function to POST a new Site
 def post_site_request(endpoint, sites):
     r = requests.post(mgmt_url+endpoint, headers=header_sites, auth=(mgmt_api_key, mgmt_api_secret), data=sites)
     body = json.loads(r.content)
     return body
 
 
-#Função para fazer POST e criar as Internal Networks
+#Function to POST a new Internal Network
 def post_internalnetworks_request(endpoint, internalnetworks, nome):
     r = requests.post(mgmt_url+endpoint, headers=header_internalnet, auth=(mgmt_api_key, mgmt_api_secret), data=internalnetworks)
     
     if r.status_code == 200:
-        print("Internal Network:", nome + " foi cadastrada com sucesso")
+        print("Internal Network:", nome + " was successfuly registred")
 
     body = json.loads(r.content)
     return body
 
-# Função pra checar se no CSV tem algum IpNetowrk inválido
+#Function to check if has a Invalid IpNetword in CSV
 def checkValidIpNetwork(ip, name):
     try:
         ipaddress.IPv4Network(ip)
         return True
     except ValueError:
-        print('Ip/netmask inválido para o IPv4:', ip + ", Internal Network Name:", name)
+        print('Invalid Ip/netmask fo IPv4:', ip + ", Internal Network Name:", name)
         return False
 
-# Função para remover duplicados no CSV 
+# Function to remove exactly duplicates in CSV
 def removeduplicate(it):
     seen = set()
     for x in it:
@@ -103,18 +99,17 @@ def removeduplicate(it):
             yield x
             seen.add(t)
 
-# Função para checar se valor inserido no SiteID é inteiro
+# Function to check if the the value given for SiteID is int
 def getIntSiteID():
     while True:
-        number = input("Digite o Id do Site que deseja atribuir: ")
+        number = input("Type the SiteID that you want assign: ")
         if number.isdigit():
             return number
 
 
 def main():
-    # variavel pra checkar se um site ja esta cadastrado
+    # variable the check if a site is already registred
     cadastrado = False
-
     # fazer o get das internal netwokrs para comparar com o vsv
     r_get_internalnet = get_internalnetworks_request('/organizations/{}/internalnetworks'.format(org_id))
     
@@ -130,25 +125,25 @@ def main():
         del element['modifiedAt']
         del element['siteId']
 
-    csvfile = input("Digite o nome do csv que voce vai atribuir: ")
+    csvfile = input("Type the name of CSV that you want use: ")
 
     if os.path.isfile(csvfile.strip() + ".csv"):
         pass
     else:
-        print ("\nArquivo", csvfile + ".csv " + "não encontrado")
+        print ("\nArchive", csvfile + ".csv " + "not found")
         sys.exit()
 
-    # Abrir o CSV se existe
+    # Open the CSC
     f = open(csvfile.strip() + ".csv", 'r',encoding='utf-8-sig')  
 
-    # Adicionar as colunas no output do CSV para ficar igual JSON pra post.
+    # Adding columns to CSV
     reader = csv.DictReader( f, fieldnames = ("name","ipAddress","prefixLength"))  
 
     
-    #Odernar o Csv para nao ter problemas futuros no umbrela  
+    #Sorting the CSV by Name
     sorted_csv = sorted(reader, key=lambda row: (row['name']))
     
-    # Fazer o Parse de CSV para JSON  
+    #Parse the CSV
     dump_new_internalnet = json.dumps( [ row for row in sorted_csv ])  
     new_internalnet = json.loads(dump_new_internalnet)
     
@@ -161,19 +156,19 @@ def main():
             pass
 
     if count > 0:
-        print("\nVerifique os Ip's acima em seu CSV, pois eles não são válidos! Após arrumar, rode o script novamente =D")
+        print("\nCheck the Ip's above in your CSV, they are not valid! After fixing, run the script again =D")
         sys.exit()
     
     
-    # Loop para opção, só sao quando for uma opçao válida
+    # Loop for option
     while True:
         try:
-            opcao = int(input("Você deseja criar um site novo ou atribuir o csv à um existente? (1 - criar, 2 - atribuir): "))
+            opcao = int(input("Do you want to create a new Site or assign csv to an existing one? (1 - create, 2 - assign): "))
         except ValueError:
-            print("Digite somente numeros.")
+            print("Type numbers only.")
             continue
         
-        #Só fazer o get se deseja criar um novo site
+        #Only do GET if option is create a new one
         if opcao == 1:
             #fazer o get dos sites para pegar verificar se o nome que vc deu pro site já existe
             r_get_sites_check = get_sites_request('/organizations/{}/sites'.format(org_id))
@@ -182,13 +177,13 @@ def main():
               
         
         if opcao > 2 or opcao == 0:
-            print("Opção inválida. Digite 1 para criar um novo site ou 2 para atribuir o csv à um site existente")
+            print("Invalid option. Enter 1 to create a new Site or 2 to assign csv to an existing Site")
             continue
         else:
             break
 
     if opcao == 1:
-        site_name = input("Digite o nome do Site: ")
+        site_name = input("Type the Site name: ")
         for ja_cadastrado in sites_json_check:
             if ja_cadastrado['name'] == site_name:
                 cadastrado = True
@@ -199,11 +194,11 @@ def main():
             siteId = r_site['siteId']
             existente = False
         else:
-            print("\nSite já foi cadastrado, por favor digite um nome que não esteja cadastrado")
+            print("\nSite has already been registered, please enter a name that is not registered")
             sys.exit()
     
     elif opcao == 2:
-        #fazer o get dos sites para pegar os id
+        #Get Sites ID
         r_get_sites = get_sites_request('/organizations/{}/sites'.format(org_id))
         dump_sites = json.dumps(r_get_sites)
         sites_json = json.loads(dump_sites)
@@ -214,36 +209,37 @@ def main():
         print(listasites)
         existente = True
 
-    # Remover duplicados exatos do csv e criar nova lista adionando somente o que não é duplicado
+    # Remove exact duplicates from the csv and create a new list adding only what is not duplicated
     lista_removido_duplicado = []
     for item in removeduplicate(new_internalnet):
         lista_removido_duplicado.append(item)
     
-    #Remover nomes iguais dentro da lista de removido_duplicado, pois se tem mais de um nome igual já no csv, mantem o primeiro e remove o resto
+    
+    #Remove identical names within the list of removed_duplicate, because if you have more than one equal name already in csv, keep the first one and remove the rest
     lista_final_new = list()
     items_set = set()    
     for js in lista_removido_duplicado:
         # só adiciona items nao vistos (referenciando to 'nome' como key)
         if not js['name'] in items_set:
-            # marcar como seen
+            # mark as seen
             items_set.add(js['name'])         
-            # add to results
+            # add to lista_final_new
             lista_final_new.append(js)
 
-    #Remover Ip/prefix iguais dentro da lista de removido_duplicado, pois se tem mais de um um ip/prefix igual já no csv, mantem o primeiro e remove o resto
+    #Remove the same Ip / prefix within the  lista_removido_duplicado list, because if you have more than one equal ip/prefix in the csv, keep the first one and remove the rest
     lista_final = list()
     items_set_ip = set()
     for ip in lista_final_new:
-        # só adiciona items nao vistos (referenciando to 'ipddress/prefix' como key)
         ipnet = ip['ipAddress'] + "/" + str(ip['prefixLength'])
         if not ipnet in items_set_ip:
-            # marcar como seen
+            # Mark as seen
             items_set_ip.add(ipnet)          
-            # adciona a lista final
+            # Add to lista_final
             lista_final.append(ip)
 
-    #Comparar o nome e ippadress que tem no CSV com o que já tem no Umbrella, e cadastrar só os que nao tem! 
-    #As comparações anteriores foram todas para o arquivos do CSV, ou seja, localmente
+    
+    #Compare the name and ippadress you have in CSV with what you already have in Umbrella, and register only those you don't have!
+    #The previous comparisons were all for the CSV files, that is, locally
     for k in range(len(act_internal_net)):
         for i in range(len(lista_final)):
             ipatual = act_internal_net[k]['ipAddress'] + "/" + str(act_internal_net[k]['prefixLength'])
@@ -253,20 +249,18 @@ def main():
                 lista_final.pop(i)              
                 break   
        
-    #Se a lista retornar vazia não cadastrar nada
+    #If the list is empty, do nothing
     if not lista_final:
-        print("Nada neste CSV para adicionar!! Provalemente o que tem no CSV, já está cadastrado no Umbrella!!!")
+        print("Nothing in this CSV to register !! Probably what you have on CSV, you are already registered on Umbrella !!!")
     else:
-        # if para saber se a opcao é pra adicionar à um site existente
+        # A codintion to check if optin is for adding the CSV values to a Site that exists
         if existente == True:
             new_siteId = getIntSiteID()
             for cadastrar in lista_final:
-                #Atribui o siteID escolhido ao final da lista Json que vai mandar o POST
                 cadastrar['siteId'] = new_siteId 
                 post_internalnetworks_request('/organizations/{}/internalnetworks'.format(org_id), json.dumps(cadastrar), cadastrar['name'])             
         else:
             for cadastrar in lista_final:
-                #Adiciona o siteID criado ao final da lista Json que vai mandar o POST
                 cadastrar['siteId'] = siteId
                 post_internalnetworks_request('/organizations/{}/internalnetworks'.format(org_id), json.dumps(cadastrar), cadastrar['name'])
 
@@ -274,7 +268,7 @@ if __name__ == '__main__':
     try:
         main()
     except (KeyboardInterrupt, SystemExit):
-        sys.stdout.write("\n\nFechando script...\n\n")
+        sys.stdout.write("\n\nClosing script...\n\n")
         sys.stdout.flush()
         pass
      
