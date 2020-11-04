@@ -1,6 +1,6 @@
 # Cisco Umbrella Internal Network Register
 
-Este repositório contém um script em Python que cria Internal Networks no Umbrella a partir de um CSV, facilitando para cadastro de redes em massa.
+Este repositório contém um script em Python que cria Internal Domains no Cisco Umbrella a partir de um CSV, facilitando para cadastro de redes em massa.
 
 API key e API secret do <a href="https://docs.umbrella.com/umbrella-api/docs/authentication-and-errors">Cisco Umbrella Management API</a> também é necessário para execução do script.
 
