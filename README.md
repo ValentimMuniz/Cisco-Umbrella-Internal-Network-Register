@@ -4,7 +4,7 @@ This repo contains a Python script that creates Internal Networks in Umbrella us
 
 API key and API secret of <a href="https://docs.umbrella.com/umbrella-api/docs/authentication-and-errors">Cisco Umbrella Management API</a> is also required.
 
-Umbrella Organization ID is also required to use this script! Use <a href = "https://docs.umbrella.com/deployment-umbrella/docs/find-your-organization-id" target="_blank">esta documentação</a> to find out how to obtain your Organization ID.
+Umbrella Organization ID is also required to use this script! Use <a href = "https://docs.umbrella.com/deployment-umbrella/docs/find-your-organization-id" target="_blank">this documentation</a> to find out how to obtain your Organization ID.
 
 If you do not have the required Python libraries configured, you will receive an error when running the script. You will need to install the "requirements.txt" file: (make sure it is in the same directory as the cloned git files):<br>
 <b> pip install -r requirements.txt</b><br>
