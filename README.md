@@ -41,5 +41,5 @@ If you do not have the required Python libraries configured, you will receive an
 <b> If the user chooses the option to create a new Site<b>
 <img src="screenshots/option_create.png"><br>
 <b> Showing on Umbrella Dashboard !
-<img src="screenshots/umbrella_internalnetword.png"><br>
+<img src="screenshots/umbrella_internalnetworks.png"><br>
 <img src="screenshots/umbrellaSites.png"><br>
