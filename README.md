@@ -1,45 +1,45 @@
 # Cisco Umbrella Internal Network Register
 
-Este repositório contém um script em Python que cria Internal Networks no Cisco Umbrella a partir de um CSV, facilitando para cadastro de redes em massa.
+This repo contains a Python script that creates Internal Networks in Umbrella using a CSV file, making it easier to register mass networks.
 
-API key e API secret do <a href="https://docs.umbrella.com/umbrella-api/docs/authentication-and-errors">Cisco Umbrella Management API</a> também é necessário para execução do script.
+API key and API secret of <a href="https://docs.umbrella.com/umbrella-api/docs/authentication-and-errors">Cisco Umbrella Management API</a> is also required.
 
-O ID da sua Organização do Umbrella também é necessário para execução do script! Use <a href = "https://docs.umbrella.com/deployment-umbrella/docs/find-your-organization-id" target="_blank">esta documentação</a> para saber como obter seu Organization ID.
+Umbrella Organization ID is also required to use this script! Use <a href = "https://docs.umbrella.com/deployment-umbrella/docs/find-your-organization-id" target="_blank">esta documentação</a> to find out how to obtain your Organization ID.
 
-Se não tiver as bibliotecas Python necessárias configuradas, receberá um erro ao executar o script. Você precisará instalar o arquivo "requirements.txt": (certifique-se de que está no mesmo diretório que os arquivos clonados do git):<br>
+If you do not have the required Python libraries configured, you will receive an error when running the script. You will need to install the "requirements.txt" file: (make sure it is in the same directory as the cloned git files):<br>
 <b> pip install -r requirements.txt</b><br>
 
-# Arquivo de configuração, modificar com seus dados e credenciais antes de rodar o script
-<img src="screenshots/config_file.png"><br><br><br>
+# Config file, modify with your data and credentials before running the script
+<img src="screenshots/configuration.png"><br><br><br>
 
 
-# Como funciona ??
-• O script vai exigir através de prompts que você indique o arquivo CSV que vai ser usado para o cadastro. Caso não encontre ele encerra. (Não é necessário colocar extensão, o script faz isso automáticamente)<br>
+# How it works ??
+• The script will require prompts to indicate the CSV file that will be used for registration. If not, it closes. (There is no need to add an extension for the CSV file, the script does it automatically)<br>
 <img src="screenshots/informa_csv.png"><br><br><br>
-• Após informar o CSV, e caso ele exista, o script vai te dar duas opções:<br> 
-    1. Criar um novo Site, e a partir do Site criado, cadastrar as Internals Networks do CSV atribuídas à esse novo site criado<br>
+• After informing the CSV, and if it exists, the script will give you two options:<br> 
+    1. Create a new Site, and from the created Site, register the Internals Networks and assing to this new created Site<br>
     <img src="screenshots/criar_novo_site.png"><br>
-    2. Registrar as Internal Networks à um site existente, o scritp vai printar uma lista de sites existentes no Umbrella e para essa opção você deve usar o SiteId futuramente.<br>
-    <img src="screenshots/lista_sites.png"><br>
+    2. Register the Internal Networks ans assigns to a existing site, the scritp will print a list of existing Sites on Umbrella, and for that option you will use the SiteId in nexts steps<br>
+    <img src="screenshots/listSites.png"><br>
     3. O CSV deve ser preenchido da seguinte forma para que o script funcione corretamente<br>
-<b> SEMPRE: NOME,IP,PREFIXO</b>
-<img src="screenshots/csv.png"><br><br>
+<b> ALWAYS: NAME,IP,PREFIX</b>
+<img src="screenshots/csv_file.png"><br><br>
 
 # Features
-• O script trabalha de forma totalmente inteligente, faz verificações básicas e avançadas, e toma as decisões corretamente, entre elas:<br>
-1. Verifica se os Ip's informados no CSV são válidos. Deve ser um Ip de rede. O script informa quais são os Ip's incorretos no CSV para facilitar na correçao do usuário.
-2. Verifica se um Site já esta cadastrado no Umbrella, caso a opção escolhida pelo usuário serja de criar um novo Site. Isso porque no Umbrella não pode existir Sites com o mesmo nome
-3. Remove do CSV qualquer tipo de informação que esteja exatamente duplicada
-4. Remove do CSV nomes, ip/prefix que sejam iguais! Isso porque no Umbrella, nome e Ip's devem ser únicos, então o script faz isso automáticamente pra você caso tenha algo duplicado no CSV
-5. Compara com o que já está cadastrado no Umbrella, caso já esteja, o script automáticamente remove esses dados e não os envia para cadastro, só envia realmente o que não estiver cadastrado no Umbrella. <b>Com isso facilita muito a vida do usuário!!</b>
+•  The script works in a totally intelligent way, does basic and advanced checks, and makes decisions correctly, including:<br>
+1. Checks if the Ip's informed in the CSV are valid. It must be a Network Ip. The script tells you which IP's are incorrect in the CSV to facilitate user correction
+2. Checks if a Site is already registered in Umbrella, if the option chosen by the user is to create a new Site. That's because Umbrella cannot have Sites with the same name
+3. It will remove from the CSV any information that is exactly duplicated
+4. It will remove from the CSV names and Networks that are the same! That's because in Umbrella, name and networs must be unique, so the script does this automatically for you if you have something duplicated in CSV
+5. It will compare with what is already registered in Umbrella, and if is are already registered, the script automatically removes this data and does not send it for registration! The script will send only what is not registered in Umbrella. <b>This makes the user’s life much easier =D</b>
 
-# Imagens funcionamento do script
-<img src="screenshots/ip_invalido.png"><br>
-<img src="screenshots/nadanovo.png"><br>
-<b> Caso o usuário escolha opção de atribuir à um Site existente<b><br>
-<img src="screenshots/script_atribuir.png"><br>
-<b> Caso o usuário escolha opção de criar novo Site<b>
-<img src="screenshots/script_novosite.png"><br>
-<b> Dashboard Umbrella mostrando cadastrado!
-<img src="screenshots/umbrella_internalnet.png"><br>
-<img src="screenshots/umbrella_sites.png"><br>
+# Images of how script works
+<img src="screenshots/invalidNetwork.png"><br>
+<img src="screenshots/nothing_new.png"><br>
+<b> If the user chooses the option to assign to an existing Site<b><br>
+<img src="screenshots/option_assign.png"><br>
+<b> If the user chooses the option to create a new Site<b>
+<img src="screenshots/option_create.png"><br>
+<b> Showing on Umbrella Dashboard !
+<img src="screenshots/umbrella_internalnetword.png"><br>
+<img src="screenshots/umbrellaSites.png"><br>
