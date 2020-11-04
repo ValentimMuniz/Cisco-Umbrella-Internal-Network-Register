@@ -1,0 +1,8 @@
+[Umbrella]
+OrgID = 2626574
+ManagementAPIKey = 0da6f7c76cfe49088003f9f365171333
+ManagementAPISecret = 448aa4f4b490426b889947b290f5525f
+
+[CSV]
+FileName = domains.csv
+
